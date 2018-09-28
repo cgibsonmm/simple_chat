@@ -5,12 +5,16 @@
       <%= render 'messages/message', message: message %>
     <% end %>
   </div>
-  <%= form_with model: @message do |f| %>
-    <div class="input-group md-3">
-      <%= f.text_field :body, placeholder: "Say something...", class: 'form-control', id: "message_form" %>
-      <div class="input-group-append">
-        <%= f.submit "Send", class: 'btn btn-secondary' %>
+  <% if user_signed_in? %>
+    <%= form_with model: @message do |f| %>
+      <div class="input-group md-3">
+        <%= f.text_field :body, placeholder: "Say something...", class: 'form-control', id: "message_form" %>
+        <div class="input-group-append">
+          <%= f.submit "Send", class: 'btn btn-secondary' %>
+        </div>
       </div>
-    </div>
+    <% end %>
+  <% else %>
+    <p style="text-align:center;">You need to be <%= link_to "Signed In", new_user_session_path %> to post comments</p>
   <% end %>
 </div>
